@@ -4,9 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Discord Account Support - Stack Overflow</title>
+
+  <!-- Android/Chrome/Edge PWA -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#f48024" />
   <link rel="icon" href="icon-512.png" type="image/png" />
+
+  <!-- iOS Safari PWA Support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="DASC SO">
+  <link rel="apple-touch-icon" href="icon-512.png" />
+
   <style>
     body {
       margin: 0;
@@ -30,10 +39,17 @@
   </div>
 
   <script>
-    // Delay to show splash, then redirect
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(() => {
+        console.log("Service Worker Registered");
+      });
+    }
+
+    // Redirect to your Stack Overflow Teams org
     setTimeout(() => {
       window.location.replace("https://stackoverflowteams.com/c/discord-account-support-corporation");
-    }, 500); // Adjust delay if you want longer splash screen
+    }, 500); // You can change this delay
   </script>
 </body>
 </html>
